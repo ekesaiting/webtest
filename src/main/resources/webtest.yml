@@ -1,0 +1,20 @@
+version: "2.3"
+services:
+  sadais-zuul-web:
+    container_name: webtest
+#    image: registry.cn-hangzhou.aliyuncs.com/sadais_web/master-sadais-zuul-web-prd:latest
+    image: registry.cn-hangzhou.aliyuncs.com/shf_namespace/master-webtest-prd:latest
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+      - /mnt/micro-service/webtest/logs:/mnt/micro-service/WEB-INF/classes/logs
+    environment:
+      - EXTERNAL_PORT=8888
+      - RUN_BEFORE_SLEEP=0
+    network_mode: "host"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888/actuator/health"]
+      interval: 2m
+      timeout: 5s
+      retries: 3
+      start_period: 50s
