@@ -1,9 +1,9 @@
 version: "2.3"
 services:
-  sadais-zuul-web:
+  webtest:
     container_name: webtest
 #    image: registry.cn-hangzhou.aliyuncs.com/sadais_web/master-sadais-zuul-web-prd:latest
-    image: registry.cn-hangzhou.aliyuncs.com/shf_namespace/master-webtest-prd:latest
+    image: registry.cn-hangzhou.aliyuncs.com/shf_namespace/master-webtest-dev:latest
     volumes:
       - /etc/localtime:/etc/localtime
       - /etc/timezone:/etc/timezone

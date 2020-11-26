@@ -1,6 +1,6 @@
 #!/bin/sh
 #setting project value
-PRODUCT_CODE=wentest
+PRODUCT_CODE=webtest
 MVC_CONFIG=com.feng.Application
 
 #get project current path
@@ -29,8 +29,7 @@ else
 fi
 
 # load project all jar file
-for i in ../lib/*.jar;
-do
+for i in ../lib/*.jar;do
     LIB_PATH=${LIB_PATH}:$i
 done
 
@@ -42,12 +41,12 @@ export JAVA_OPTS="-Xmx640M -Xms640M -Xmn192M -XX:MaxMetaspaceSize=128M -XX:Metas
 #1.5g
 #export JAVA_OPTS="-Xmx1024M -Xms1024M -Xmn384M -XX:MaxMetaspaceSize=192M -XX:MetaspaceSize=192M -XX:+UseParallelGC -XX:+UseAdaptiveSizePolicy -XX:MaxGCPauseMillis=100 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryError"
 #2g
-#export JAVA_OPTS="-Xmx1344M -Xms1344M -Xmn448M -XX:MaxMetaspaceSize=256M -XX:MetaspaceSize=256M -XX:+UseConcMarkSweepGC -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSClassUnloadingEnabled -XX:+ParallelRefProcEnabled -XX:+CMSScavengeBeforeRemark -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryErro"
+#export JAVA_OPTS="-Xmx1344M -Xms1344M -Xmn448M -XX:MaxMetaspaceSize=256M -XX:MetaspaceSize=256M -XX:+UseConcMarkSweepGC -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=70 -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSClassUnloadingEnabled -XX:+ParallelRefProcEnabled -XX:+CMSScavengeBeforeRemark -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+HeapDumpOnOutOfMemoryError"
 
 # run the project
 #>$LOG_DIR/$PRODUCT_CODE.log
 echo "The application will start in ${RUN_BEFORE_SLEEP}s..." && sleep ${RUN_BEFORE_SLEEP}
-$JAVA_HOME/bin/java -Duser.timezone=GMT+8 -server $JAVA_OPTS -classpath $CLASSPATH:$LIB_PATH:$PROJECT_PATH $MVC_CONFIG > $LOG_DIR/$PRODUCT_CODE.log &
+"$JAVA_HOME"/bin/java -Duser.timezone=GMT+8 -server $JAVA_OPTS -classpath $CLASSPATH:$LIB_PATH:$PROJECT_PATH $MVC_CONFIG > $LOG_DIR/$PRODUCT_CODE.log &
 echo $! > $PRODUCT_CODE.pid
 sleep 1
 tail -f $LOG_DIR/$PRODUCT_CODE.log

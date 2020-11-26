@@ -3,6 +3,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.2.RELEASE</version>
+        <relativePath />
+    </parent>
 
     <groupId>org.example</groupId>
     <artifactId>webtest</artifactId>
@@ -15,6 +21,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.springframework.cloud.version>2.3.2.RELEASE</org.springframework.cloud.version>
+<!--        此属性在jenkins打包时设置-->
+<!--        <git.branch>master</git.branch>-->
     </properties>
 
     <dependencies>
@@ -28,8 +36,40 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>${org.springframework.cloud.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.3.8</version>
+        </dependency>
     </dependencies>
+
+    <profiles>
+        <!-- 开发 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <web.env>dev</web.env>
+            </properties>
+            <activation>
+                <!-- 默认激活此配置 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 测试 -->
+        <profile>
+            <id>test</id>
+            <properties>
+                <web.env>test</web.env>
+            </properties>
+        </profile>
+        <!-- 生产 -->
+        <profile>
+            <id>prd</id>
+            <properties>
+                <web.env>prd</web.env>
+            </properties>
+        </profile>
+    </profiles>
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
