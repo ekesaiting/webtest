@@ -58,5 +58,6 @@ public class IndexController {
     public void shfGetJson(){
         String body = HttpUtil.get("http://localhost:8888/index/data");
         System.out.println(body);
+
     }
 }

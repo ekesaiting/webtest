@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.springframework.cloud.version>2.3.2.RELEASE</org.springframework.cloud.version>
 <!--        此属性在jenkins打包时设置-->
-<!--        <git.branch>master</git.branch>-->
+        <git.branch>master</git.branch>
     </properties>
 
     <dependencies>
@@ -113,7 +113,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>${start-class}</mainClass>
+<!--                    <mainClass>${start-class}</mainClass>-->
                     <executable>true</executable>
                     <fork>true</fork>
                     <!-- Enable the line below to have remote debugging of your application
@@ -134,7 +134,7 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.2</version>
                 <configuration>
-                    <skip>true</skip>
+<!--                    <skip>true</skip>-->
                 </configuration>
             </plugin>
             <!-- git -->
@@ -163,24 +163,20 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Jib -->
+<!--             Jib -->
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
                     <from>
-                        <image>openjdk:alpine</image>
+                        <image>registry.cn-hangzhou.aliyuncs.com/shf_namespace/jdk8</image>
                     </from>
                     <to>
                         <!--${git.branch}由git-commit-id-plugin提供        -->
                         <image>
                             registry.cn-hangzhou.aliyuncs.com/shf_namespace/${git.branch}-${project.artifactId}-${web.env}:${project.version}
                         </image>
-                        <auth>
-                            <username>ekesaiting</username>
-                            <password>Docker1429774984</password>
-                        </auth>
                         <tags>
                             <tag>latest</tag>
                             <tag>${project.version}</tag>
@@ -208,4 +204,29 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <repositories>
+        <repository>
+            <id>shf-release</id>
+            <name>Release Repository of shf</name>
+            <url>http://101.37.24.243:8081/repository/maven-public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>shf-release</id>
+            <name>Release Repository of shf</name>
+            <url>http://101.37.24.243:8081/repository/shf-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>shf-snapshot</id>
+            <name>Snapshot Repository of shf</name>
+            <url>http://101.37.24.243:8081/repository/shf-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
