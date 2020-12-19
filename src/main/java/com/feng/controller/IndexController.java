@@ -60,4 +60,10 @@ public class IndexController {
         System.out.println(body);
 
     }
+     @GetMapping("/test")
+    public void test(){
+        String body = HttpUtil.get("http://localhost:8888/index/data");
+        System.out.println(body);
+
+    }
 }
